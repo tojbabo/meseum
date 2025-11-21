@@ -16,6 +16,10 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+
+    // JSON 모듈 활성화
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
   }
 }
