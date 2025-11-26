@@ -5,7 +5,13 @@
 
 **UI 구성 대부분의 코딩은 cursor AI를 활용하영바이브 코딩으로 구현**
 
----
+<h2>환경 구성</h2>
+
+백엔드 API서버 - aws ec2 
+
+프론트엔드 react - aws s3, cloudfront
+
+
 
 ---
 
