@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import * as pkg from '../package.json';
 
-
 const logger = new Logger('main');
 
 async function bootstrap() {

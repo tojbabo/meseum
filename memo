@@ -17,6 +17,8 @@ chore → 빌드, 패키지 매니저 등 잡일
 feat(login): add JWT authentication
 fix(api): correct error handling in /users endpoint
 docs(readme): update setup instructions
+
+docs(a-readme): readme파일 변경
 --------------------------------------------------------------
 
 -------------------------<server env>-------------------------
@@ -31,4 +33,9 @@ sudo npm install -g pm2
 
 # react 빌드 결과물. 정적파일 실행 도구
 npm install -g serve
+--------------------------------------------------------------
+
+
+--------------------------<git oper>--------------------------
+git com
 --------------------------------------------------------------
