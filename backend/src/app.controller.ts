@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { AppService } from 'src/app.service';
 
 @Controller()
 export class AppController {
@@ -9,4 +9,10 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Post('api/set')
+  setData(@Body() body: any): string {
+    return this.appService.setData(body);
+  }
 }
+

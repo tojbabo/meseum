@@ -1,7 +1,8 @@
 // HomePage.tsx
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {Images} from "../../../urls"
+import {Images} from "@/urls.ts";
+import { fetchExampleData } from "../api";
 
 export default function HomePage() {
   const boxwidth = 300;
@@ -49,7 +50,10 @@ export default function HomePage() {
     setPos({x:nx, y:ny});
   };
 
-  const onMouseUp = () => setDragging(false);
+  const onMouseUp = () => {
+    setDragging(false);
+    fetchExampleData({x: pos.x, y: pos.y});
+  }
 
 
 
