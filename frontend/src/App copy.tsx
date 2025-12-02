@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { useNavigate, Routes, Route } from "react-router-dom";
 
-import HomePage from "./features/home/pages/hompage";   // ← 네가 만든 메인페이지
+import HomePage from "./features/entrance/pages/hompage";   // ← 네가 만든 메인페이지
 
 function App() {
   const [count, setCount] = useState(0)

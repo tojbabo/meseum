@@ -37,5 +37,11 @@ npm install -g serve
 
 
 --------------------------<git oper>--------------------------
-git com
+커밋 생성 (git add . → git commit -m "메시지")
+
+커밋 푸시 (git push origin main)
+
+태그 생성 (git tag backend-v0.1.0)
+
+태그 푸시 (git push origin backend-v0.1.0 또는 git push origin --tags)
 --------------------------------------------------------------

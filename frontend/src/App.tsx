@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { useNavigate, useLocation, Routes, Route } from "react-router-dom";
 
-import HomePage from "./features/home/pages/hompage";
+import HomePage from "./features/entrance/pages/hompage";
 
 function App() {
   const [count, setCount] = useState(0)
