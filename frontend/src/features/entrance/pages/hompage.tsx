@@ -51,61 +51,75 @@ export default function HomePage() {
   };
 
   const onMouseUp = () => {
+    if(!dragging) return
     setDragging(false);
     fetchExampleData({x: pos.x, y: pos.y});
   }
 
 
-
   return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <h1 style={{ fontSize: "32px", marginBottom: "40px" }}>
-        안녕하세요
-      </h1>
-
+    <div 
+      style={{ 
+        height: "100%",
+        textAlign: "center", 
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center"}}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseUp}
+      onMouseUp={onMouseUp}
+      >
       <div
         style={{
-          width: `${boxwidth}px`,
-          height: `${boxheight}px`,
-          border: "1px solid #ccc",
-          margin: "0 auto 40px",
-          position: "relative",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          overflow: "hidden"
+          padding: "40px"
         }}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
       >
-        <img 
-          ref={imgRef}
-          src={urls.entranceimg}
-          style={{
-            userSelect: "none",
-            position: "absolute",
-            width: "600px",
-            left: pos.x,
-            top: pos.y,
-            cursor: dragging ? "grabbing" : "grab"
-          }}
-          onDragStart={(e)=>e.preventDefault()}
-          onMouseDown={onMouseDown}
-        />
-      </div>
+        <h1 style={{ fontSize: "32px", marginBottom: "40px" }}>
+          안녕하세요
+        </h1>
 
-      <Link
-        to="/login"
-        style={{
-          padding: "12px 24px",
-          border: "1px solid #333",
-          borderRadius: "6px",
-          textDecoration: "none",
-          color: "#333"
-        }}
-      >
-        접속하기
-      </Link>
+        <div
+          style={{
+            width: `${boxwidth}px`,
+            height: `${boxheight}px`,
+            border: "1px solid #ccc",
+            margin: "0 auto 40px",
+            position: "relative",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden"
+          }}
+        >
+          <img 
+            ref={imgRef}
+            src={urls.entranceimg}
+            style={{
+              userSelect: "none",
+              position: "absolute",
+              width: "600px",
+              left: pos.x,
+              top: pos.y,
+              cursor: dragging ? "grabbing" : "grab"
+            }}
+            onDragStart={(e)=>e.preventDefault()}
+            onMouseDown={onMouseDown}
+          />
+        </div>
+
+        <Link
+          to="/login"
+          style={{
+            padding: "12px 24px",
+            border: "1px solid #333",
+            borderRadius: "6px",
+            textDecoration: "none",
+            color: "#333"
+          }}
+        >
+          접속하기
+        </Link>
+      </div>
     </div>
   );
 }
