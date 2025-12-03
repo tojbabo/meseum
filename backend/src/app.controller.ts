@@ -10,8 +10,13 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @Get('api/get')
+  getEntranceLocation(): object{
+    return this.appService.getEntranceLocation()
+  }
+
   @Post('api/set')
-  setData(@Body() body: any): string {
-    return this.appService.setData(body);
+  setEntranceLocation(@Body() body: any): object {
+    return this.appService.setEntranceLocation(body);
   }
 }
