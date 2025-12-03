@@ -1,7 +1,7 @@
 // HomePage.tsx
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {Images} from "@/urls.ts";
+import {urls} from "@/urls.ts";
 import { fetchExampleData } from "../api";
 
 export default function HomePage() {
@@ -80,7 +80,7 @@ export default function HomePage() {
       >
         <img 
           ref={imgRef}
-          src={Images.entranceimg}
+          src={urls.entranceimg}
           style={{
             userSelect: "none",
             position: "absolute",
