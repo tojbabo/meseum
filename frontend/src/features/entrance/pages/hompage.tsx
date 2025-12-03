@@ -2,7 +2,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {urls} from "@/urls.ts";
-import { fetchExampleData } from "../api";
+import { setEntranceLocation, getEntranceLocation } from "../api";
+
 
 export default function HomePage() {
   const boxwidth = 300;
@@ -14,16 +15,31 @@ export default function HomePage() {
   const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
+    
+
+    const imgfetch = async () => {
+      const loadlocation = await getEntranceLocation()
+      let nx = 0
+      let ny = 0
+
+      if(loadlocation != null){
+        nx = loadlocation.x;
+        ny = loadlocation.y;
+      }
+      else{
+        nx = (imgSize.width/2 - boxwidth/2) * -1
+        ny = (imgSize.height/2 - boxheight/2) * -1
+      }
+
+      setPos({x:nx, y:ny})
+    };
     if(imgRef.current){
       const rect = imgRef.current.getBoundingClientRect();
       const rw = rect.width;
       const rh = rect.height;
       setImgSize({width: rw, height: rh});
 
-      const nw = (rw/2 - boxwidth/2) * -1
-      const nh = (rh/2 - boxheight/2) * -1
-
-      setPos({x:nw, y:nh})
+      imgfetch();
     }
 
   }, []);
@@ -35,27 +51,33 @@ export default function HomePage() {
 
   const onMouseMove = (e: React.MouseEvent) => {
     if(!dragging) return;
-    const mx = boxwidth - imgSize.width;
-    const my = boxheight - imgSize.height;
 
     let nx = e.clientX - start.x;
     let ny = e.clientY - start.y;
 
-    if(nx > 0) nx = 0;
-    else if(nx < mx) nx = mx;
-
-    if(ny > 0) ny = 0;
-    else if(ny < my) ny = my;
-
-    setPos({x:nx, y:ny});
+    setPos(validxy(nx,ny));
   };
 
   const onMouseUp = () => {
     if(!dragging) return
     setDragging(false);
-    fetchExampleData({x: pos.x, y: pos.y});
-  }
 
+    setEntranceLocation(validxy(pos.x, pos.y));
+  };
+  
+  const validxy = (x:number, y:number) => {
+    const mx = boxwidth - imgSize.width;
+    const my = boxheight - imgSize.height;
+
+    if(x > 0) x = 0;
+    else if(x < mx) x = mx;
+
+    if(y > 0) y = 0;
+    else if(y < my) y = my;
+
+    return {x:x, y:y}
+
+  };
 
   return (
     <div 

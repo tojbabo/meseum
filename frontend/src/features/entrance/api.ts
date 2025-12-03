@@ -1,5 +1,5 @@
 import {urls} from "@/urls"
-export async function fetchExampleData(body: Object) {
+export async function setEntranceLocation(body: Object) {
   try {
     const response = await fetch(`${urls.apiurl}/api/set`, {
       method: "POST",
@@ -15,6 +15,22 @@ export async function fetchExampleData(body: Object) {
 
     const data = await response.text();
 
+    return data;
+  } catch (error) {
+  }
+}
+export async function getEntranceLocation() {
+  try {
+    const response = await fetch(`${urls.apiurl}/api/get`, {
+      method: "GET"
+    });
+
+    if (!response.ok) {
+      return null
+    }
+
+    const data = await response.json();
+    console.log(data)
     return data;
   } catch (error) {
   }
