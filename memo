@@ -33,6 +33,9 @@ sudo npm install -g pm2
 
 # react 빌드 결과물. 정적파일 실행 도구
 npm install -g serve
+
+# 사용자의 쿠키를 사용하기 위해
+npm install cookie-parser
 --------------------------------------------------------------
 
 
