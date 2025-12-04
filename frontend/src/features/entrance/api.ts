@@ -6,6 +6,7 @@ export async function setEntranceLocation(body: Object) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include',
       body: JSON.stringify(body),
     });
 
@@ -22,7 +23,8 @@ export async function setEntranceLocation(body: Object) {
 export async function getEntranceLocation() {
   try {
     const response = await fetch(`${urls.apiurl}/api/get`, {
-      method: "GET"
+      method: "GET",
+      credentials: "include"
     });
 
     if (!response.ok) {
@@ -30,7 +32,6 @@ export async function getEntranceLocation() {
     }
 
     const data = await response.json();
-    console.log(data)
     return data;
   } catch (error) {
   }
