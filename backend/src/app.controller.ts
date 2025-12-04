@@ -11,8 +11,8 @@ export class AppController {
   }
 
   @Get('api/get')
-  getEntranceLocation(): object{
-    return this.appService.getEntranceLocation()
+  getEntranceLocation(): object {
+    return this.appService.getEntranceLocation();
   }
 
   @Post('api/set')
