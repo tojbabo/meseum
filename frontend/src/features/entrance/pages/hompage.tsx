@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {urls} from "@/urls.ts";
-import { setEntranceLocation, getEntranceLocation } from "../api";
+import { getTodayCount, setEntranceLocation, getEntranceLocation } from "../api";
 
 
 export default function HomePage() {
@@ -15,7 +15,7 @@ export default function HomePage() {
   const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    
+    getTodayCount();
 
     const imgfetch = async () => {
       const loadlocation = await getEntranceLocation()
