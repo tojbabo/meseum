@@ -15,7 +15,6 @@ export class AppService {
     const key = 'entrancelocation';
 
     if (fs.existsSync(this.filepath)) {
-      console.log('load entrance xy location')
       const content = fs.readFileSync(this.filepath, 'utf8');
       const lines = content.split('\n');
 
@@ -35,9 +34,27 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
+
+
+  
+
+  // getEnterCount(): number{
+  //   return this.today_count
+  // }
+
+  /**
+   * Entrance 화면에서 이미지의 좌표를 가져옴
+   * @returns "{x,y}"
+   */
   getEntranceLocation(): object {
     return this.lastlocation;
   }
+
+  /**
+   * Entrance 화면에서 이미지의 좌표를 설정함
+   * @param body "{x,y}"
+   * @returns result message
+   */
   setEntranceLocation(body: any): object {
     const key = 'entrancelocation';
     let content = '';
