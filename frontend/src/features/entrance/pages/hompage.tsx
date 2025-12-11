@@ -6,8 +6,8 @@ import { getTodayCount, setEntranceLocation, getEntranceLocation } from "../api"
 
 
 export default function HomePage() {
-  const boxwidth = 300;
-  const boxheight = 200;
+  const boxwidth = 400;
+  const boxheight = 280;
   const imgRef = useRef<HTMLImageElement>(null);
   const [pos, setPos] = useState({x:0, y:0});
   const [dragging, setDragging] = useState(false);
@@ -42,7 +42,7 @@ export default function HomePage() {
       imgfetch();
     }
 
-  },[imgSize]);
+  },[]);
   
   const onMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
@@ -80,40 +80,19 @@ export default function HomePage() {
   };
 
   return (
-    <div 
-      style={{ 
-        height: "100%",
-        textAlign: "center", 
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center"}}
+    <div
+      className="homepage-container"
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseUp}
       onMouseUp={onMouseUp}
-      >
-      <div
-        style={{
-          padding: "40px"
-        }}
-      >
-        <h1 style={{ fontSize: "32px", marginBottom: "40px" }}>
+    >
+      <div className="homepage-content">
+        <h1 className="homepage-title">
           안녕하세요
         </h1>
 
-        <div
-          style={{
-            width: `${boxwidth}px`,
-            height: `${boxheight}px`,
-            border: "1px solid #ccc",
-            margin: "0 auto 40px",
-            position: "relative",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            overflow: "hidden"
-          }}
-        >
-          <img 
+        <div className="image-container">
+          <img
             ref={imgRef}
             src={urls.entranceimg}
             style={{
@@ -131,13 +110,7 @@ export default function HomePage() {
 
         <Link
           to="/login"
-          style={{
-            padding: "12px 24px",
-            border: "1px solid #333",
-            borderRadius: "6px",
-            textDecoration: "none",
-            color: "#333"
-          }}
+          className="entrance-button"
         >
           접속하기
         </Link>
