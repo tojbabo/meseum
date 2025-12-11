@@ -1,11 +1,26 @@
 import { Injectable } from '@nestjs/common';
+import {Response} from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+export const COOKIE_VISIT = 'cookie_visit';
 
 @Injectable()
 export class AppService {
   private readonly filepath = path.join(process.cwd(), 'tempconfig.txt');
   private lastlocation = { x: 0, y: 0 };
+  private todaycount = 0
+
+  private getMidnightKst(): Date { 
+    dayjs.extend(utc);
+    dayjs.extend(timezone)
+    const nowKst = dayjs().tz('Asia/Seoul');
+    const midnightKst = nowKst.endOf('day').toDate();
+    return midnightKst;
+}
 
   onModuleInit():void {
     this.loadMetafile();
@@ -35,12 +50,23 @@ export class AppService {
     return 'Hello World!';
   }
 
+  getTodayCount(): number{
+    return this.todaycount;
+  }
 
-  
+  async setTodayCount(visitedToday:string, res: Response){
+    if (visitedToday) return;
 
-  // getEnterCount(): number{
-  //   return this.today_count
-  // }
+    this.todaycount++;
+    
+    res.cookie(COOKIE_VISIT, 'true', {
+        expires: this.getMidnightKst(),
+        httpOnly: true,
+        secure: true,   // localhost 예외처리 믿고 secure: true, sameSite: none 사용
+        sameSite: 'none',
+    });
+
+  }
 
   /**
    * Entrance 화면에서 이미지의 좌표를 가져옴

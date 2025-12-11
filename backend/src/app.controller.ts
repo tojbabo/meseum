@@ -1,19 +1,26 @@
 import { Controller, Get, Post, Body, Req, Res, HttpVersionNotSupportedException } from '@nestjs/common';
-import { AppService } from 'src/app.service';
-import { VisitorService } from './visitor/visitor.service';
+import { Request, Response } from 'express';
+import { AppService, COOKIE_VISIT } from 'src/app.service';
+
 
 @Controller()
 export class AppController {  
-  constructor(private readonly appService: AppService, private readonly visitorService: VisitorService) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   getHello(): string {
     return this.appService.getHello();
   }
 
+  @Post('api/set/count')
+  async setTodayCount(@Req() req, @Res({ passthrough: true }) res: Response){
+    const visitedToday = req.cookies[COOKIE_VISIT];
+    await this.appService.setTodayCount(visitedToday, res); 
+  }
+
   @Get('api/get/count')
   getTodayCount(): number{
-    return this.visitorService.getTodayCount();
+    return this.appService.getTodayCount();
   }
 
   @Get('api/get')
