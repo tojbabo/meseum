@@ -42,7 +42,7 @@ export default function HomePage() {
       imgfetch();
     }
 
-  }, []);
+  },[imgSize]);
   
   const onMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
@@ -52,8 +52,8 @@ export default function HomePage() {
   const onMouseMove = (e: React.MouseEvent) => {
     if(!dragging) return;
 
-    let nx = e.clientX - start.x;
-    let ny = e.clientY - start.y;
+    const nx = e.clientX - start.x;
+    const ny = e.clientY - start.y;
 
     setPos(validxy(nx,ny));
   };

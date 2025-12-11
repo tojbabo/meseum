@@ -11,9 +11,9 @@ export async function getTodayCount() {
     
     const data = await response.text();
     return data;
-  } catch (error) {} 
+  } catch {} 
 }
-export async function setEntranceLocation(body: Object) {
+export async function setEntranceLocation(body: object) {
   try {
     const response = await fetch(`${urls.apiurl}/api/set`, {
       method: "POST",
@@ -31,8 +31,7 @@ export async function setEntranceLocation(body: Object) {
     const data = await response.text();
 
     return data;
-  } catch (error) {
-  }
+  } catch { }
 }
 export async function getEntranceLocation() {
   try {
@@ -47,6 +46,5 @@ export async function getEntranceLocation() {
 
     const data = await response.json();
     return data;
-  } catch (error) {
-  }
+  } catch{ }
 }

@@ -11,7 +11,7 @@ const Head: React.FC = () => {
                 headers: {'Content-Type': 'application/json',},
             });
             
-        } catch (error) {}
+        } catch {}
     };
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {Response} from 'express';
+import { Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import dayjs from 'dayjs';
@@ -7,37 +7,36 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 
 export const COOKIE_VISIT = 'cookie_visit';
+export const KEY_ENTRANCELOC = 'entrancelocation';
 
 @Injectable()
 export class AppService {
   private readonly filepath = path.join(process.cwd(), 'tempconfig.txt');
   private lastlocation = { x: 0, y: 0 };
-  private todaycount = 0
+  private todaycount = 0;
 
-  private getMidnightKst(): Date { 
+  private getMidnightKst(): Date {
     dayjs.extend(utc);
-    dayjs.extend(timezone)
+    dayjs.extend(timezone);
     const nowKst = dayjs().tz('Asia/Seoul');
     const midnightKst = nowKst.endOf('day').toDate();
     return midnightKst;
-}
+  }
 
-  onModuleInit():void {
+  onModuleInit(): void {
     this.loadMetafile();
   }
-  
-  private loadMetafile() : void{
-    const key = 'entrancelocation';
 
+  private loadMetafile(): void {
     if (fs.existsSync(this.filepath)) {
       const content = fs.readFileSync(this.filepath, 'utf8');
       const lines = content.split('\n');
 
-      lines.forEach(line=>{
-        const [key,value] = line.split(":");
+      lines.forEach((line) => {
+        const [key, value] = line.split(':');
 
-        if(key == 'entrancelocation'){
-          const [x,y] = value.split(',');
+        if (key == KEY_ENTRANCELOC) {
+          const [x, y] = value.split(',');
           this.lastlocation.x = parseInt(x);
           this.lastlocation.y = parseInt(y);
         }
@@ -45,27 +44,25 @@ export class AppService {
     }
   }
 
-  
   getHello(): string {
     return 'Hello World!';
   }
 
-  getTodayCount(): number{
+  getTodayCount(): number {
     return this.todaycount;
   }
 
-  async setTodayCount(visitedToday:string, res: Response){
+  async setTodayCount(visitedToday: string, res: Response) {
     if (visitedToday) return;
 
     this.todaycount++;
-    
-    res.cookie(COOKIE_VISIT, 'true', {
-        expires: this.getMidnightKst(),
-        httpOnly: true,
-        secure: true,   // localhost 예외처리 믿고 secure: true, sameSite: none 사용
-        sameSite: 'none',
-    });
 
+    res.cookie(COOKIE_VISIT, 'true', {
+      expires: this.getMidnightKst(),
+      httpOnly: true,
+      secure: true, // localhost 예외처리 믿고 secure: true, sameSite: none 사용
+      sameSite: 'none',
+    });
   }
 
   /**
