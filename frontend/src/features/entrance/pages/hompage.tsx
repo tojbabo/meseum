@@ -15,36 +15,28 @@ export default function HomePage() {
   const [dragging, setDragging] = useState(false);
   const [start, setStart] = useState({x:0, y:0});
   const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
-
   useEffect(() => {
     const imgfetch = async () => {
       const loadlocation = await getEntranceLocation()
       let nx = 0
       let ny = 0
-
       if(loadlocation != null){
-        nx = loadlocation.x;
-        ny = loadlocation.y;
+        console.log(imgSize.width)
+        nx = loadlocation.x * imgSize.width;
+        ny = loadlocation.y * imgSize.height;
       }
       else{
-        nx = (imgSize.width/2 - boxsz.width/2) * -1
-        ny = (imgSize.height/2 - boxsz.height/2) * -1
+        nx = (imgSize.width/2 - boxsz.width/2)
+        ny = (imgSize.height/2 - boxsz.height/2)
       }
-
-
-      nx = nx * boxsz.width * 10000;
-      ny = ny * boxsz.height * 10000;
-
       setPos({x:nx, y:ny})
     };
 
     if(boxsz.width == 0){
-      getTodayCount();
       if(boxRef.current){
         const rect = boxRef.current.getBoundingClientRect();
         const bw = rect.width;
         const bh = rect.height;
-  
         setBoxsz({width:bw, height:bh});
         setWidth(bw * 2)
       }
@@ -55,10 +47,13 @@ export default function HomePage() {
         const rw = rect.width;
         const rh = rect.height;
         setImgSize({width: rw, height: rh});
-        imgfetch();
       }
     }
-  },[boxsz]);
+    else{
+      getTodayCount();
+      imgfetch();
+    }
+  },[imgwidth, imgSize]);
   
   const onMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
@@ -77,9 +72,8 @@ export default function HomePage() {
   const onMouseUp = () => {
     if(!dragging) return
     setDragging(false);
-    const x = Math.round(pos.x / boxsz.width)/10000
-    const y = Math.round(pos.y / boxsz.height)/10000
-
+    const x = pos.x /imgSize.width
+    const y = pos.y /imgSize.height
     setEntranceLocation(validxy(x, y));
   };
   
@@ -94,7 +88,6 @@ export default function HomePage() {
     else if(y < my) y = my;
 
     return {x:x, y:y}
-
   };
 
   return (
