@@ -6,6 +6,7 @@ describe("getTodayCount", () => {
     vi.spyOn(globalThis, "fetch").mockResolvedValue({
       ok: true,
       text: () => Promise.resolve("123"),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
     const result = await getTodayCount();
@@ -15,6 +16,7 @@ describe("getTodayCount", () => {
   it("응답이 ok=false 이면 null 반환", async () => {
     vi.spyOn(globalThis, "fetch").mockResolvedValue({
       ok: false,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any);
 
     const result = await getTodayCount();
