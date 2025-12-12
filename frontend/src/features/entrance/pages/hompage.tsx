@@ -1,22 +1,22 @@
 // HomePage.tsx
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect} from "react";
 import { Link } from "react-router-dom";
 import {urls} from "@/urls.ts";
-import { getTodayCount, setEntranceLocation, getEntranceLocation } from "../api";
+import { getTodayCount, setEntranceLocation, getEntranceLocation } from "@/features/entrance/api";
 
 
 export default function HomePage() {
-  const boxwidth = 400;
-  const boxheight = 280;
   const imgRef = useRef<HTMLImageElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  const [boxsz, setBoxsz] = useState({width:0, height:0});
+  const [imgwidth, setWidth] = useState(0);
   const [pos, setPos] = useState({x:0, y:0});
   const [dragging, setDragging] = useState(false);
   const [start, setStart] = useState({x:0, y:0});
   const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    getTodayCount();
-
     const imgfetch = async () => {
       const loadlocation = await getEntranceLocation()
       let nx = 0
@@ -27,22 +27,38 @@ export default function HomePage() {
         ny = loadlocation.y;
       }
       else{
-        nx = (imgSize.width/2 - boxwidth/2) * -1
-        ny = (imgSize.height/2 - boxheight/2) * -1
+        nx = (imgSize.width/2 - boxsz.width/2) * -1
+        ny = (imgSize.height/2 - boxsz.height/2) * -1
       }
+
+
+      nx = nx * boxsz.width * 10000;
+      ny = ny * boxsz.height * 10000;
 
       setPos({x:nx, y:ny})
     };
-    if(imgRef.current){
-      const rect = imgRef.current.getBoundingClientRect();
-      const rw = rect.width;
-      const rh = rect.height;
-      setImgSize({width: rw, height: rh});
 
-      imgfetch();
+    if(boxsz.width == 0){
+      getTodayCount();
+      if(boxRef.current){
+        const rect = boxRef.current.getBoundingClientRect();
+        const bw = rect.width;
+        const bh = rect.height;
+  
+        setBoxsz({width:bw, height:bh});
+        setWidth(bw * 2)
+      }
     }
-
-  },[]);
+    else if(imgSize.width == 0){
+      if(imgRef.current){
+        const rect = imgRef.current.getBoundingClientRect();
+        const rw = rect.width;
+        const rh = rect.height;
+        setImgSize({width: rw, height: rh});
+        imgfetch();
+      }
+    }
+  },[boxsz]);
   
   const onMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
@@ -61,13 +77,15 @@ export default function HomePage() {
   const onMouseUp = () => {
     if(!dragging) return
     setDragging(false);
+    const x = Math.round(pos.x / boxsz.width)/10000
+    const y = Math.round(pos.y / boxsz.height)/10000
 
-    setEntranceLocation(validxy(pos.x, pos.y));
+    setEntranceLocation(validxy(x, y));
   };
   
   const validxy = (x:number, y:number) => {
-    const mx = boxwidth - imgSize.width;
-    const my = boxheight - imgSize.height;
+    const mx = boxsz.width - imgSize.width;
+    const my = boxsz.height - imgSize.height;
 
     if(x > 0) x = 0;
     else if(x < mx) x = mx;
@@ -91,14 +109,15 @@ export default function HomePage() {
           안녕하세요
         </h1>
 
-        <div className="image-container">
+        <div className="image-container"
+              ref={boxRef}>
           <img
             ref={imgRef}
             src={urls.entranceimg}
             style={{
               userSelect: "none",
               position: "absolute",
-              width: "600px",
+              width: `${imgwidth}px`,
               left: pos.x,
               top: pos.y,
               cursor: dragging ? "grabbing" : "grab"

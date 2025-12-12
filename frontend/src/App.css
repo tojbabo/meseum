@@ -100,7 +100,8 @@
 }
 
 .image-container {
-  width: 400px;
+  width: 100%;
+  max-width: 600px;
   height: 280px;
   border-radius: 16px;
   margin: 0 auto 3rem;
@@ -164,4 +165,69 @@
 
 .entrance-button:active {
   transform: translateY(-1px);
+}
+
+/* 600px 이하에서는 100% 너비 사용 */
+@media (max-width: 600px) {
+  .homepage-content {
+    width: 100%;
+    max-width: none;
+  }
+
+  .image-container {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .homepage-container {
+    padding: 1rem;
+  }
+
+  .homepage-content {
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+  }
+
+  .homepage-title {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .image-container {
+    height: 200px;
+    margin-bottom: 2rem;
+  }
+
+  .entrance-button {
+    padding: 14px 32px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .homepage-container {
+    padding: 0.5rem;
+  }
+
+  .homepage-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .homepage-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .image-container {
+    height: 160px;
+    margin-bottom: 1.5rem;
+  }
+
+  .entrance-button {
+    padding: 12px 28px;
+    font-size: 0.95rem;
+  }
 }
