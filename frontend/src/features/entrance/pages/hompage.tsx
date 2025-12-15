@@ -98,27 +98,29 @@ export default function HomePage() {
       onMouseUp={onMouseUp}
     >
       <div className="homepage-content">
-        <h1 className="homepage-title">
-          안녕하세요
-        </h1>
-
-        <div className="image-container"
-              ref={boxRef}>
-          <img
-            ref={imgRef}
-            src={urls.entranceimg}
-            style={{
-              userSelect: "none",
-              position: "absolute",
-              width: `${imgwidth}px`,
-              left: pos.x,
-              top: pos.y,
-              cursor: dragging ? "grabbing" : "grab"
-            }}
-            onDragStart={(e)=>e.preventDefault()}
-            onMouseDown={onMouseDown}
-          />
+        <div
+          style={{
+            padding: '0.5rem',
+          }}>
+          <div className="image-container"
+                ref={boxRef}>
+            <img
+              ref={imgRef}
+              src={urls.entranceimg}
+              style={{
+                userSelect: "none",
+                position: "absolute",
+                width: `${imgwidth}px`,
+                left: pos.x,
+                top: pos.y,
+                cursor: dragging ? "grabbing" : "grab"
+              }}
+              onDragStart={(e)=>e.preventDefault()}
+              onMouseDown={onMouseDown}
+            />
+          </div>
         </div>
+
 
         <Link
           to="/login"

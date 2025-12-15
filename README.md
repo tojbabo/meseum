@@ -7,9 +7,9 @@
 
 <h2>환경 구성</h2>
 
-백엔드 API서버 - aws ec2 
+백엔드 API서버 - aws ec2
 
-프론트엔드 react - aws s3, cloudfront
+프론트엔드 react - aws s3, cloudfront (https://d16qoiqggnvjqt.cloudfront.net/)
 
 
 
