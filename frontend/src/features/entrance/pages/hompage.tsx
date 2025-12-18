@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect} from "react";
 import { Link } from "react-router-dom";
 import {urls} from "@/urls.ts";
 import { getTodayCount, setEntranceLocation, getEntranceLocation } from "@/features/entrance/api";
-
+import Docent from "@/shared/docent";
 
 export default function HomePage() {
   const imgRef = useRef<HTMLImageElement>(null);
@@ -21,7 +21,6 @@ export default function HomePage() {
       let nx = 0
       let ny = 0
       if(loadlocation != null){
-        console.log(imgSize.width)
         nx = loadlocation.x * imgSize.width;
         ny = loadlocation.y * imgSize.height;
       }
@@ -102,8 +101,7 @@ export default function HomePage() {
           style={{
             padding: '0.5rem',
           }}>
-          <div className="image-container"
-                ref={boxRef}>
+          <div className="image-container" ref={boxRef}>
             <img
               ref={imgRef}
               src={urls.entranceimg}
@@ -121,13 +119,13 @@ export default function HomePage() {
           </div>
         </div>
 
-
-        <Link
-          to="/login"
-          className="entrance-button"
-        >
-          접속하기
-        </Link>
+        <div style={{textAlign : "center"}}>
+          <Link to="/login" className="entrance-button">
+            입장
+          </Link>
+        </div>
+        <hr style={{ margin: '1rem 0', border: 'none', borderTop: '1px solid #ccc' }} />
+        <Docent/>
       </div>
     </div>
   );
