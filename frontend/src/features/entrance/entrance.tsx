@@ -15,8 +15,10 @@ export default function Entrance() {
   const [dragging, setDragging] = useState(false);
   const [start, setStart] = useState({x:0, y:0});
   const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
+  getTodayCount();
   useEffect(() => {
     const imgfetch = async () => {
+      
       const loadlocation = await getEntranceLocation()
       let nx = 0
       let ny = 0
@@ -28,31 +30,32 @@ export default function Entrance() {
         nx = (imgSize.width/2 - boxsz.width/2)
         ny = (imgSize.height/2 - boxsz.height/2)
       }
+
       setPos({x:nx, y:ny})
     };
-
-    if(boxsz.width == 0){
-      if(boxRef.current){
-        const rect = boxRef.current.getBoundingClientRect();
-        const bw = rect.width;
-        const bh = rect.height;
-        setBoxsz({width:bw, height:bh});
-        setWidth(bw * 2)
-      }
-    }
-    else if(imgSize.width == 0){
+    const imgload = () => {  
       if(imgRef.current){
         const rect = imgRef.current.getBoundingClientRect();
         const rw = rect.width;
         const rh = rect.height;
         setImgSize({width: rw, height: rh});
+        console.log('img size is: ', rw, rh)
       }
+    };
+    
+    if(boxRef.current && boxsz.width == 0){
+      const rect = boxRef.current.getBoundingClientRect();
+      const bw = rect.width;
+      const bh = rect.height;
+      setBoxsz({width:bw, height:bh});
+      setWidth(bw * 2);
     }
-    else{
-      getTodayCount();
-      imgfetch();
-    }
-  },[imgwidth, imgSize]);
+
+    else if(imgSize.width == 0 || imgSize.height == 0) imgload()
+     
+    else imgfetch()      
+    
+  },[imgSize, imgwidth]);
   
   const onMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
@@ -71,6 +74,9 @@ export default function Entrance() {
   const onMouseUp = () => {
     if(!dragging) return
     setDragging(false);
+    console.log(pos)
+    console.log(imgSize)
+
     const x = pos.x /imgSize.width
     const y = pos.y /imgSize.height
     setEntranceLocation(validxy(x, y));
@@ -85,6 +91,10 @@ export default function Entrance() {
 
     if(y > 0) y = 0;
     else if(y < my) y = my;
+
+    console.log(boxsz.width, imgSize.width , x);
+    console.log(boxsz.height, imgSize.height , y);
+    console.log('------------------------------');
 
     return {x:x, y:y}
   };

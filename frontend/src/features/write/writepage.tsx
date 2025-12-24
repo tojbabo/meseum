@@ -10,7 +10,6 @@ export default function WritePage() {
         <h1>글 작성</h1>
 
         <div className="form-group">
-          <label htmlFor="title">제목</label>
           <input
             id="title"
             type="text"
@@ -22,7 +21,6 @@ export default function WritePage() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="content">내용</label>
           <textarea
             id="content"
             value={content}

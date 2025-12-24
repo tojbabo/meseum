@@ -19,9 +19,7 @@ const Head: React.FC = () => {
     }, []);
 
     return (
-        <div style={{ display: 'none' }}>
-            {/* 시각적으로는 보이지 않지만, 기능적으로만 존재하는 div */}
-        </div>
+        <div style={{display:'none'}}></div>
     );
 };
 

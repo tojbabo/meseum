@@ -15,6 +15,7 @@ export async function getTodayCount() {
 }
 export async function setEntranceLocation(body: object) {
   try {
+    console.log(body)
     const response = await fetch(`${urls.apiurl}/api/set`, {
       method: "POST",
       headers: {
