@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState  } from "react";
+import { Link } from "react-router-dom";
 
 export default function WritePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
 
   return (
     <div className="writepage-container">
@@ -33,7 +35,7 @@ export default function WritePage() {
 
         <div className="button-group">
           <button className="submit-btn">저장</button>
-          <button className="cancel-btn">취소</button>
+          <Link to="/home" className="cancel-btn">취소</Link>
         </div>
       </div>
     </div>
