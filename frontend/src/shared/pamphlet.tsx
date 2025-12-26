@@ -19,39 +19,54 @@ const Pamphlet: React.FC = () => {
             left:'0',
             position: 'absolute',
             zIndex: '2',
-            width: openflag? '100%' : '30px',  
+            width: openflag? '100%' : '45px',  
             height: '100%',
             display: 'flex',
-            flexFlow: 'row'
+            flexFlow: 'row',
+            transition: 'all 0.4s ease'
             }}>
 
+            {/** 아이콘 바 */}
             <div style={{
                 // borderRight: '1px solid #cccccc',
                 backgroundColor:'#2a2a2a',
-                width: '30px',
-                height: '100%'
+                width: '45px',
+                height: '100%',
+                padding: '0.8rem'
             }}
             onClick={openside}
+            onMouseOver={openside}
             >
+                <div>
+                    <img
+                    src={"/src/assets/mainicon.png"}
+                    style={{width:"100%"}}
+                    />
+                </div>
+                
 
             </div>
 
+            {/** 텍스트 버튼 바 */}
             <div style={{
-                display: openflag? 'block' : 'none',
                 // borderRight: '1px solid #cccccc',
                 backgroundColor:'#2a2a2a',
-                width: '200px',
-                height: '100%'
+                width: openflag? '200px' : '0',
+                height: '100%',
+                transition: 'all 0.2s ease'
             }}>
             </div>
             
+            {/** 암흑 공간 */}
             <div style={{
                 flexGrow: '1',
                 height: '100%',
-                display: openflag? 'block' : 'none',
-                backgroundColor: '#000000a0'
+                backgroundColor: '#000000a0',
                 
-            }} onClick={closeside}/>
+            }} 
+            onClick={closeside}
+            onMouseOver={closeside}
+            />
         </div>
     );
 };
